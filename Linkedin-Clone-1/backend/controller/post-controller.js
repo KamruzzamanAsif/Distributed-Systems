@@ -12,32 +12,6 @@ const minioClient = new Minio.Client({
     accessKey: 'ZUvdWVXOtJcSlTgXZ6pg',
     secretKey: 'dMC1G5Qiv8YmIZQhS6bETkdDeCUOv5BVABdEjdpR',
 });
-  
-
-// const createPost = async (req, res, next) => {
-//     const { user_email, content, image_name } = req.body;
-
-//     if (!user_email) {
-//         return res.status(422).json({ message: 'Invalid data. Please provide user_email' });
-//     }
-
-//     try {
-//         // Create a new Post instance
-//         const newPost = new Post({
-//             user_email,
-//             content,
-//             image_name,
-//         });
-
-//         // Save the post to the database
-//         const post = await newPost.save();
-
-//         // Return the newly created post
-//         return res.status(201).json({ post });
-//     } catch (err) {
-//         return next(err);
-//     }
-// };
 
 
 const createPost = async (req, res, next) => {
@@ -77,6 +51,7 @@ const createPost = async (req, res, next) => {
         // Create a new Post instance
         const image_name = imageName;
         const newPost = new Post({
+            id: 0,
             user_email,
             content,
             image_name,
@@ -86,7 +61,7 @@ const createPost = async (req, res, next) => {
         const post = await newPost.save();
 
         // Return the newly created post
-        return res.status(201).json({ post });
+        return res.status(200).json({ post });
     } catch (err) {
         return next(err);
     }
@@ -94,13 +69,10 @@ const createPost = async (req, res, next) => {
 
 
 
-
-const getAllPostsExceptCurrentUser = async (req, res, next) => {
-    const { user_email } = req.body;
-
+const getAllPosts = async (req, res, next) => {
     try {
-        // Find all posts except the post of the current user
-        const posts = await Post.find({ user_email: { $ne: user_email } });
+        // Find all posts 
+        const posts = await Post.find();
 
         // Return the list of posts
         return res.status(200).json({ posts });
@@ -111,4 +83,4 @@ const getAllPostsExceptCurrentUser = async (req, res, next) => {
 
 
 exports.createPost = createPost;
-exports.getAllPostsExceptCurrentUser = getAllPostsExceptCurrentUser;
+exports.getAllPosts = getAllPosts;

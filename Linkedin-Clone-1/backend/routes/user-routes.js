@@ -1,6 +1,6 @@
 const express = require('express');
 const { getAllUsers, addUser, signinUser } = require('../controller/user-controller');
-const { createPost, getAllPostsExceptCurrentUser } = require('../controller/post-controller');
+const { createPost, getAllPosts } = require('../controller/post-controller');
 
 const multer = require('multer');
 
@@ -14,7 +14,7 @@ router.post('/signin/', signinUser);
 // Multer middleware to handle the file upload
 const upload = multer({ dest: 'uploads/' });
 router.post('/posts/', upload.single('image'), createPost);
-router.get('/posts/', getAllPostsExceptCurrentUser);
+router.get('/posts/', getAllPosts);
 
 
 
