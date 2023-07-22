@@ -2,6 +2,7 @@ import Image from 'next/image';
 import logo from 'public/linkedin-logo.jpeg';
 import React, { useState } from 'react';
 import axios from 'axios';
+import Modal from 'react-modal';
 
 const Signin = () => {
   const [formData, setFormData] = useState({
@@ -17,16 +18,29 @@ const Signin = () => {
     }));
   };
 
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const handleSignin = async () => {
     try {
+      console.log(formData);
       // Make a POST request to your backend API
-      const response = await axios.post('http://localhost:5000/signin', formData);
+      const response = await axios.post('http://localhost:5000/signin/', formData);
+
+      // Save the JWT token in localStorage
+      localStorage.setItem('token', response.data.token);
+
+      // Convert user data to JSON string and save in localStorage
+      localStorage.setItem('username', response.data.user.name);
+      localStorage.setItem('email', response.data.user.email);
 
       // Handle the response as needed (e.g., show success message or redirect to home page)
       console.log('Signin successful!', response.data);
 
+      // Show the modal for sign-in success
+      setIsModalOpen(true);
+
       // Redirect to the home page (you should replace '/home' with the actual URL of your home page)
-      window.location.href = '/home';
+      window.location.href = '/Home';
     } catch (error) {
       // Handle errors (e.g., display error message)
       console.error('Signin failed:', error);
@@ -94,6 +108,17 @@ const Signin = () => {
             </a>
           </p>
         </div>
+
+        {/* Show the success modal when signup is successful */}
+        <Modal
+          isOpen={isModalOpen}
+          onRequestClose={() => setIsModalOpen(false)} // Close the modal if the user clicks outside it
+          overlayClassName="fixed inset-0 flex items-center justify-center modal-overlay"
+          className="modal-content p-4 rounded bg-green-500 text-white font-bold max-w-sm mx-auto"
+          contentLabel="Signup Success Modal"
+        >
+          <div>Signup successful!</div>
+        </Modal>
       </div>
     </div>
   );
