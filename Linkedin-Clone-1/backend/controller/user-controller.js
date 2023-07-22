@@ -59,7 +59,7 @@ const addUser = async (req, res, next) => {
 const signinUser = async (req, res, next) => {
     const { email, password } = req.body;
 
-    if (!email || email.trim() === '' || !password || password.length < 4) {
+    if (!email || email.trim() === '' || !password) {
         return res.status(422).json({ message: 'Invalid data' });
     }
 

@@ -8,7 +8,7 @@ const router = express.Router();
 
 router.get('/users/', getAllUsers);
 router.post('/signup/', addUser);
-router.get('/signin/', signinUser);
+router.post('/signin/', signinUser);
 
 // for simplicity i will use this router for all task
 // Multer middleware to handle the file upload
