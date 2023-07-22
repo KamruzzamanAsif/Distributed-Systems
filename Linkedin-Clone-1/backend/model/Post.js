@@ -12,7 +12,7 @@ const postSchema = new Schema(
     content: {
         type: String,
     },
-    image_link: {
+    image_name: {
         type: String,
     },
     },
