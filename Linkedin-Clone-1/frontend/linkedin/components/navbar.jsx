@@ -1,9 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
-import logo from 'public/linkedin-small-icon.png'; // Assuming you have the LinkedIn logo image available
-import homeIcon from 'public/home-icon.svg'; // Replace with the path to your home icon SVG
-import notificationIcon from 'public/notification-icon.svg'; // Replace with the path to your notification icon SVG
+import logo from 'public/linkedin-small-icon.png'; 
+import homeIcon from 'public/home-icon.svg'; 
+import notificationIcon from 'public/notification-icon.svg'; 
 
 const Navbar = () => {
   return (  
@@ -16,14 +16,14 @@ const Navbar = () => {
       </div>
 
       {/* Center the home icon */}
-      <Link href="/" passHref>
+      <Link href="/Home" passHref>
         <div className="flex justify-center items-center h-10 w-10 cursor-pointer absolute left-1/3 transform -translate-x-1/2 -translate-y-1/2">
           <Image src={homeIcon} alt="Home" className="h-10 w-10" />
         </div>
       </Link>
 
       {/* Center the notification icon */}
-      <Link href="/notifications" passHref>
+      <Link href="/notification" passHref>
         <div className="flex justify-center items-center h-10 w-10 cursor-pointer absolute right-1/3 transform translate-x-1/2 -translate-y-1/2">
           <Image src={notificationIcon} alt="Notifications" className="h-9 w-10" />
         </div>

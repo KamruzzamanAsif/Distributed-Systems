@@ -1,8 +1,10 @@
 import Navbar from "../components/navbar";
 import Post from "../components/post";
+import AddPost from "../components/addPost"
 
 const posts = [
     {
+      id: 1,
       user: {
         name: 'John Doe',
         profilePicture: 'https://randomuser.me/api/portraits/men/1.jpg',
@@ -13,6 +15,7 @@ const posts = [
       },
     },
     {
+      id: 2,
       user: {
         name: 'Jane Doe',
         profilePicture: 'https://randomuser.me/api/portraits/women/1.jpg',
@@ -24,17 +27,19 @@ const posts = [
     // Add more posts here...
   ];
   
-  
 
 const Home = () =>{
     return(
         <>
             <Navbar />
 
-            <div className="bg-[#f4f4f5] h-screen w-screen">
+            <div className="bg-[#f4f4f5]">
                 <main className="container mx-auto p-4">
+                <AddPost/>
+
                 {posts.map((post) => (
                 <Post
+                    key = {post.id}
                     user={post.user}
                     content={post.content}
                 />
