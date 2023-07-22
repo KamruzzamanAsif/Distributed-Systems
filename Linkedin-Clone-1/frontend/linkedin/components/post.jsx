@@ -3,7 +3,7 @@ import React from 'react';
 const Post = ({ user, content }) => {
   return (
     <div className="max-w-lg mx-auto bg-white rounded-lg shadow p-4 mb-4">
-      <div className="flex items-center mb-4">
+      {/* <div className="flex items-center mb-4">
         <img
           src={user.profilePicture}
           alt={user.name}
@@ -26,7 +26,10 @@ const Post = ({ user, content }) => {
             </div>
           )}
         </>
-      )}
+      )} */}
+
+      <p>{user}</p>
+      <p>{content}</p>
     </div>
   );
 };
