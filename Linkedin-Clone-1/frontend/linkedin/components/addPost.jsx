@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import axios from 'axios';
 
-const AddPost = ({ onAddPost }) => {
+const AddPost = () => {
   const [text, setText] = useState('');
   const [image, setImage] = useState(null);
 
@@ -13,8 +14,45 @@ const AddPost = ({ onAddPost }) => {
     setImage(file);
   };
 
-  const handleSubmit = () => {
-    //
+  const handleSubmit = async () => {
+    try {
+      if (!text) {
+        console.log('Please enter post text.');
+        return;
+      }
+
+      // If image is not selected, set it to null in the formData
+      const formData = new FormData();
+      formData.append('user_email', localStorage.getItem('email')); // Replace with the user's email
+      formData.append('content', text);
+      formData.append('image', image || null);
+      
+      console.log(formData);
+      
+      const response = await axios.post('http://localhost:5000/posts/', formData, {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      });
+
+      if (response.status === 200) {
+        const data = response.data;
+        // If the post is successfully created on the backend, you can handle the data
+        // or perform any other actions here
+        console.log('New post:', data.post);
+        // Call the onAddPost function to update the post list in the parent component
+        
+        // Clear the input fields after successful submission
+        setText('');
+        setImage(null);
+      } else {
+        // Handle any error responses from the backend here
+        console.log('Error:', response.statusText);
+      }
+    } catch (error) {
+      // Handle any errors that occurred during the Axios request
+      console.error('Error:', error);
+    }
   };
 
   return (

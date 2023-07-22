@@ -3,7 +3,7 @@ import logo from 'public/linkedin-logo.jpeg';
 import React, { useState } from 'react';
 import axios from 'axios';
 import Modal from 'react-modal';
-
+  
 const Signin = () => {
   const [formData, setFormData] = useState({
     email: '',
