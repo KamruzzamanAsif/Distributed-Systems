@@ -3,6 +3,7 @@ const { getAllUsers, addUser, signinUser } = require('../controller/user-control
 const { createPost, getAllPosts, getImage } = require('../controller/post-controller');
 
 const multer = require('multer');
+const { addNotification, getNotification } = require('../controller/notification-controller');
 
 const router = express.Router();
 
@@ -17,6 +18,8 @@ router.post('/posts/', upload.single('image'), createPost);
 router.get('/posts/', getAllPosts);
 router.get('/posts/:imageName', getImage);
 
-
+///
+router.post('/notifications/', addNotification);
+router.get('/notifications/', getNotification);
 
 module.exports = router;

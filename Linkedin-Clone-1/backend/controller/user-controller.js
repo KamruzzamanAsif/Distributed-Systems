@@ -79,7 +79,7 @@ const signinUser = async (req, res, next) => {
         // If the password is valid, create a JWT token for authentication
         const token = jwt.sign(
             { userId: user._id, email: user.email },
-            'my-secret-key', // Replace with your own secret key for signing the token
+            'my-secret-key', 
             { expiresIn: '1h' } // Token will expire in 1 hour
         );
 

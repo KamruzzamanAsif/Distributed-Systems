@@ -9,8 +9,13 @@ const minioClient = new Minio.Client({
     endPoint: 'localhost',
     port: 9000,
     useSSL: false,
-    accessKey: 'ZUvdWVXOtJcSlTgXZ6pg',
-    secretKey: 'dMC1G5Qiv8YmIZQhS6bETkdDeCUOv5BVABdEjdpR',
+    /* home */
+    // accessKey: 'ZUvdWVXOtJcSlTgXZ6pg',
+    // secretKey: 'dMC1G5Qiv8YmIZQhS6bETkdDeCUOv5BVABdEjdpR',
+
+    /* iit */
+    accessKey: 'cFsgWX791k0wVcADmHeu',
+    secretKey: 'IxiTlehqYysPPZsGjVZtbuoICO3sDCIsSFsd5mqr',
 });
 
 
@@ -32,7 +37,7 @@ const createPost = async (req, res, next) => {
         'Content-Type': req.file.mimetype,
         };
     
-        const bucketName = 'post-images'; // Replace with your desired bucket name
+        const bucketName = 'post-images'; 
         const objectName = req.file.originalname;
         const imageName = req.file.originalname; // Save the image name
     
@@ -86,15 +91,7 @@ const getAllPosts = async (req, res, next) => {
 const getImage = async (req, res) => {
     const { imageName } = req.params;
   
-    // // Find the corresponding object name in the array
-    // const uploadedImage = uploadedImages.find(img => img.imageName === imageName);
-  
-    // if (!uploadedImage) {
-    //   return res.status(404).send('Image not found.');
-    // }
-  
-    const bucketName = 'post-images'; // Replace with your desired bucket name
-    // const objectName = uploadedImage.objectName;
+    const bucketName = 'post-images'; 
   
     minioClient.getObject(bucketName, imageName, (err, dataStream) => {
       if (err) {
