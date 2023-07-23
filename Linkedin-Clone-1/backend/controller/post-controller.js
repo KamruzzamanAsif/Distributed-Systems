@@ -82,5 +82,32 @@ const getAllPosts = async (req, res, next) => {
 };
 
 
+
+const getImage = async (req, res) => {
+    const { imageName } = req.params;
+  
+    // // Find the corresponding object name in the array
+    // const uploadedImage = uploadedImages.find(img => img.imageName === imageName);
+  
+    // if (!uploadedImage) {
+    //   return res.status(404).send('Image not found.');
+    // }
+  
+    const bucketName = 'post-images'; // Replace with your desired bucket name
+    // const objectName = uploadedImage.objectName;
+  
+    minioClient.getObject(bucketName, imageName, (err, dataStream) => {
+      if (err) {
+        console.log(err);
+        return res.status(500).send('Error retrieving the image.');
+      }
+  
+      // Pipe the data stream to the response to serve the image
+      dataStream.pipe(res);
+    });
+};
+
+
 exports.createPost = createPost;
 exports.getAllPosts = getAllPosts;
+exports.getImage = getImage;
