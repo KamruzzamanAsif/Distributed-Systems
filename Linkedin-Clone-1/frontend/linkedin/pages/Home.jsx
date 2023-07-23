@@ -44,8 +44,9 @@ const Home = () =>{
               {posts.map((post) => (
               <Post
                   key = {post.id}
-                  user={post.user_email}
+                  user_email={post.user_email}
                   content={post.content}
+                  imageName = {post.image_name}
               />
               ))}
               </main>
