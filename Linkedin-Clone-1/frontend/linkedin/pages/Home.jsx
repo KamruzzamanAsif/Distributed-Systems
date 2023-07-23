@@ -3,21 +3,23 @@ import Post from "../components/post";
 import AddPost from "../components/addPost"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-
-
   
 
 const Home = () =>{
   const [posts, setPosts] = useState([]);
+  const [notifications, setNotifications] = useState([]);
 
   const fetchPosts = async () => {
     try {
       const response = await axios.get('http://localhost:5000/posts/'); 
-      setPosts(response.data.posts);
+      // setPosts(response.data.posts);
+      const filteredPosts = response.data.posts.filter((post) => post.user_email !== localStorage.getItem('email'));
+      setPosts(filteredPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
     }
   };
+
   
   useEffect(() => {
     // Fetch posts after the component mounts
@@ -30,8 +32,6 @@ const Home = () =>{
     return () => clearInterval(interval);
   }, []);
   
-
-
 
   return(
       <>

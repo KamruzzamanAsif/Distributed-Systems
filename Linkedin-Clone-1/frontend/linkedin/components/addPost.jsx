@@ -53,6 +53,31 @@ const AddPost = () => {
       // Handle any errors that occurred during the Axios request
       console.error('Error:', error);
     }
+
+
+    // Notification system
+    try{  
+      const data = {
+        user_email: localStorage.getItem('email'), // Replace with the user's email
+        message: localStorage.getItem('email') + " has added a post",
+      };
+
+      const response = await axios.post('http://localhost:5000/notifications/', data, {
+      headers: {
+        'Content-Type': 'application/json', // Set the content type to JSON
+      },
+      });
+
+      if (response.status === 200) {
+        const data = response.data;
+        console.log(data);
+      } else {
+        console.log('Error:', response.statusText);
+      }
+    }catch (error) {
+      // Handle any errors that occurred during the Axios request
+      console.error('Error:', error);
+    }
   };
 
   return (
