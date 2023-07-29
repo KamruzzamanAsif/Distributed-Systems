@@ -26,21 +26,13 @@ const getNotification = async (req, res, next) => {
   try {
     // Find all notifications
     const notifications = await Notification.find();
-
-    // Filter out notifications that are older than 5 minutes
-    const currentTime = new Date();
-    const filteredNotifications = notifications.filter((notification) => {
-      const notificationTime = new Date(notification.createdAt);
-      const diffInMinutes = Math.floor((currentTime - notificationTime) / (1000 * 60));
-      return diffInMinutes <= 30;
-    });
-
-    // Return the list of filtered notifications
-    return res.status(200).json({ notifications: filteredNotifications });
+    // Return the list of  notifications
+    return res.status(200).json({ notifications: notifications });
   } catch (err) {
     return next(err);
   }
 };
+
 
 exports.addNotification = addNotification;
 exports.getNotification = getNotification;

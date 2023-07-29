@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const router = require('./routes/user-routes');
+const notificationCleanerJob = require('./controller/notificationCleaner');
 const cors = require('cors');
 app.use(express.json());
 app.use(cors());
@@ -18,5 +19,6 @@ mongoose
     .catch(err => console.log("Error connecting to MongoDB" + err));
 
 
-
+// Start the notification cleaner job
+notificationCleanerJob();
 
