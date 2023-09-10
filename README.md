@@ -77,3 +77,13 @@ Install the latest version of MongoDB
 
 2. Install 
     ```sudo dpkg -i mongodb-compass_1.39.3_amd64.deb```
+
+
+# Minio Setup in Linux
+
+1. Download Minio server package ```wget https://dl.minio.io/server/minio/release/linux-amd64/minio```
+
+2. Make the file executable ```chmod +x minio```
+
+- To use minio server ```sudo ./minio server /minio``` <br/>
+  then paste the address http://127.0.0.1/9000 at browser and hit enter
