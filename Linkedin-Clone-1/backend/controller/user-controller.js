@@ -82,7 +82,6 @@ const signinUser = async (req, res, next) => {
             'my-secret-key', 
             { expiresIn: '1h' } // Token will expire in 1 hour
         );
-
         // Return the token and any additional information about the user you may want to include
         return res.status(200).json({ message: 'Signin successful', token, user: { name: user.name, email: user.email } });
     } catch (err) {

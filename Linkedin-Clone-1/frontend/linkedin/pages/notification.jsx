@@ -1,19 +1,34 @@
 import Navbar from "../components/navbar";
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useRouter } from 'next/router'; // Import the useRouter hook
 
 
 const NotificationPage = () => {
 
   const [notifications, setNotifications] = useState([]);
+  const router = useRouter(); // Initialize the router hook
 
   const fetchNotifications = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/notifications/'); 
+      // Retrieve the JWT token from localStorage
+      const token = localStorage.getItem('token');
+
+      // Set up headers with the JWT token
+      const headers = {
+        Authorization: token ? `${token}` : '', // Include the token if available
+      };
+      const response = await axios.get('http://localhost:5000/notifications/', { headers }); 
       const filteredNotification = response.data.notifications.filter((notification) => notification.user_email !== localStorage.getItem('email'));
       setNotifications(filteredNotification);
     } catch (error) {
       console.error('Error fetching notifications:', error);
+      
+      // Check for a 401 Unauthorized response from the server
+      if (error.response && error.response.status === 401) {
+        // Use the router to navigate to the signin page
+        router.push('/');
+      }
     }
   };
   

@@ -3,20 +3,37 @@ import Post from "../components/post";
 import AddPost from "../components/addPost"
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-  
+import { useRouter } from 'next/router'; // Import the useRouter hook
+
 
 const Home = () =>{
   const [posts, setPosts] = useState([]);
   const [notifications, setNotifications] = useState([]);
+  const router = useRouter(); // Initialize the router hook
 
   const fetchPosts = async () => {
     try {
-      const response = await axios.get('http://localhost:5000/posts/'); 
+      // Retrieve the JWT token from localStorage
+      const token = localStorage.getItem('token');
+
+      // Set up headers with the JWT token
+      const headers = {
+        Authorization: token ? `${token}` : '', // Include the token if available
+      };
+
+      const response = await axios.get('http://localhost:5000/posts/', { headers });
+      
       // setPosts(response.data.posts);
       const filteredPosts = response.data.posts.filter((post) => post.user_email !== localStorage.getItem('email'));
       setPosts(filteredPosts);
     } catch (error) {
       console.error('Error fetching posts:', error);
+
+      // Check for a 401 Unauthorized response from the server
+      if (error.response && error.response.status === 401) {
+        // Use the router to navigate to the signin page
+        router.push('/');
+      }
     }
   };
 
