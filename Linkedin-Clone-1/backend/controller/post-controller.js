@@ -10,12 +10,12 @@ const minioClient = new Minio.Client({
     port: 9000,
     useSSL: false,
     /* home */
-    // accessKey: 'ZUvdWVXOtJcSlTgXZ6pg',
-    // secretKey: 'dMC1G5Qiv8YmIZQhS6bETkdDeCUOv5BVABdEjdpR',
+    accessKey: 'tymR6ieVSAHiRtYzuie2',
+    secretKey: '5FrOOFcFxNIObYqTBEHUz6OCBsfzQFcPJmMJJy3i',
 
     /* iit */
-    accessKey: 'cFsgWX791k0wVcADmHeu',
-    secretKey: 'IxiTlehqYysPPZsGjVZtbuoICO3sDCIsSFsd5mqr',
+    // accessKey: 'cFsgWX791k0wVcADmHeu',
+    // secretKey: 'IxiTlehqYysPPZsGjVZtbuoICO3sDCIsSFsd5mqr',
 });
 
 
