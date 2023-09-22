@@ -1,6 +1,5 @@
 const Post = require('../model/Post'); 
 
-const multer = require('multer');
 const Minio = require('minio');
 const uploadedImages = []; // Array to store image name and object name associations
 
