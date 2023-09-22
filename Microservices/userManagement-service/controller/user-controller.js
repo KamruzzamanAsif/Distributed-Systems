@@ -2,24 +2,6 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 
-
-const getAllUsers = async (req, res, next) => {
-    let users;
-    try {
-        users = await User.find();
-    } catch (error) {
-        return next(error);
-    }
-
-    if(!users) {
-        return res.status(500).json({message: "Internal server error"}); 
-    }
-
-    return res.status(200).json(users);
-}
-
-
-
 const addUser = async (req, res, next) => {
     const { name, email, password } = req.body;
 
@@ -82,7 +64,6 @@ const signinUser = async (req, res, next) => {
             'my-secret-key', 
             { expiresIn: '1h' } // Token will expire in 1 hour
         );
-
         // Return the token and any additional information about the user you may want to include
         return res.status(200).json({ message: 'Signin successful', token, user: { name: user.name, email: user.email } });
     } catch (err) {
@@ -91,7 +72,5 @@ const signinUser = async (req, res, next) => {
 };
 
 
-
-exports.getAllUsers = getAllUsers;
 exports.addUser = addUser;
 exports.signinUser = signinUser;

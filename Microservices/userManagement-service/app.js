@@ -9,12 +9,13 @@ app.use("/", router);
 
 mongoose
     .connect(
-        "mongodb://127.0.0.1:27017/linkedin",
+        "mongodb://127.0.0.1:27017/user_db",
         {useNewUrlParser: true, useUnifiedTopology: true}
     )
     .then( () => 
-        app.listen(5000, () => console.log("Connected to MongoDB and listening on port 5000"))
+        app.listen(5001, () => console.log("Connected to MongoDB user_db and listening on port 5001"))
     )
-    .catch(err => console.log("Error connecting to MongoDB" + err));
+    .catch(err => console.log("Error connecting to MongoDB user_db" + err));
+
 
 
