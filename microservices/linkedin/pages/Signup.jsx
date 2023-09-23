@@ -25,7 +25,7 @@ const Signup = () => {
   const handleSignup = async () => {
     try {
       // Make a POST request to your Express.js backend
-      const response = await axios.post('http://localhost:5001/signup', formData, {
+      const response = await axios.post("http://localhost:80/user/signup", formData, {
         headers: {
           'Content-Type': 'application/json', // Set the content type to JSON
         },
