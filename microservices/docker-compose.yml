@@ -89,9 +89,8 @@ services:
     environment:
       - DB_URL=mongodb://notification_db/notifications
   
-
-  volumes:
-    user-data:
-  #   post-data:
-  #   notification-data:
-  #   minio-data:
+volumes:
+  user-data:
+  post-data:
+  notification-data:
+  minio-data:
