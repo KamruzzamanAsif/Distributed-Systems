@@ -29,7 +29,7 @@ const AddPost = () => {
       
       console.log(formData);
       
-      const response = await axios.post('http://localhost:80/post/posts/', formData, {
+      const response = await axios.post('/post/posts/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },
@@ -62,7 +62,7 @@ const AddPost = () => {
         message: localStorage.getItem('email') + " has added a post",
       };
 
-      const response = await axios.post('http://localhost:80/notification/notifications/', data, {
+      const response = await axios.post('/notification/notifications/', data, {
       headers: {
         'Content-Type': 'application/json', // Set the content type to JSON
       },

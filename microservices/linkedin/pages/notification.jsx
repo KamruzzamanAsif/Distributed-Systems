@@ -18,7 +18,7 @@ const NotificationPage = () => {
       const headers = {
         Authorization: token ? `${token}` : '', // Include the token if available
       };
-      const response = await axios.get('http://localhost:80/notification/notifications/', { headers }); 
+      const response = await axios.get('/notification/notifications/', { headers }); 
       const filteredNotification = response.data.notifications.filter((notification) => notification.user_email !== localStorage.getItem('email'));
       setNotifications(filteredNotification);
     } catch (error) {

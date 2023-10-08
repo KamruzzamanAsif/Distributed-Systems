@@ -13,7 +13,7 @@ mongoose
         {useNewUrlParser: true, useUnifiedTopology: true}
     )
     .then( () => 
-        app.listen(5001, () => console.log("Connected to MongoDB user_db and listening on port 5001"))
+        app.listen(4001, () => console.log("Connected to MongoDB user_db and listening on port 4001"))
     )
     .catch(err => console.log("Error connecting to MongoDB user_db" + err));
 

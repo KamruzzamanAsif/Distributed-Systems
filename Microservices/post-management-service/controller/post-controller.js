@@ -1,3 +1,4 @@
+const axios = require('axios');
 const Post = require('../model/Post'); 
 
 const Minio = require('minio');
@@ -9,12 +10,12 @@ const minioClient = new Minio.Client({
     port: 9000,
     useSSL: false,
     /* home */
-    accessKey: 'tymR6ieVSAHiRtYzuie2',
-    secretKey: '5FrOOFcFxNIObYqTBEHUz6OCBsfzQFcPJmMJJy3i',
+    // accessKey: 'tymR6ieVSAHiRtYzuie2',
+    // secretKey: '5FrOOFcFxNIObYqTBEHUz6OCBsfzQFcPJmMJJy3i',
 
     /* iit */
-    // accessKey: 'cFsgWX791k0wVcADmHeu',
-    // secretKey: 'IxiTlehqYysPPZsGjVZtbuoICO3sDCIsSFsd5mqr',
+    accessKey: 'cFsgWX791k0wVcADmHeu',
+    secretKey: 'IxiTlehqYysPPZsGjVZtbuoICO3sDCIsSFsd5mqr',
 });
 
 
@@ -63,6 +64,29 @@ const createPost = async (req, res, next) => {
 
         // Save the post to the database
         const post = await newPost.save();
+
+        // Notification system
+        try{
+            const data = {
+            user_email, // Replace with the user's email
+            message: user_email + " has added a post",
+            };
+    
+            const response = await axios.post('http://localhost:4003/notifications/', data, {
+            headers: {
+            'Content-Type': 'application/json', // Set the content type to JSON
+            },
+            });
+    
+            if (response.status === 200) {
+            const data = response.data;
+            } else {
+            console.log('Error:', response.statusText);
+            }
+        }catch (error) {
+            // Handle any errors that occurred during the Axios request
+            console.error('Error:', error);
+        }
 
         // Return the newly created post
         return res.status(200).json({ post });

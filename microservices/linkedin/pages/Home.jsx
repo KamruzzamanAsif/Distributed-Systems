@@ -21,7 +21,7 @@ const Home = () =>{
         Authorization: token ? `${token}` : '', // Include the token if available
       };
 
-      const response = await axios.get('http://localhost:80/post/posts', { headers });
+      const response = await axios.get('/post/posts', { headers });
       
       // setPosts(response.data.posts);
       const filteredPosts = response.data.posts.filter((post) => post.user_email !== localStorage.getItem('email'));

@@ -8,9 +8,9 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     depends_on:
-      - post_service
+      # - post_service
       - user_service
-      - notification_service
+      # - notification_service
 
   linkedin:
     build: ./linkedin
@@ -19,7 +19,7 @@ services:
       - '3000:3000'
     volumes:
       - ./linkedin:/app
-      - ./app/node_modules
+      - /app/node_modules
     depends_on:
       - nginx
   
@@ -28,37 +28,37 @@ services:
     restart: unless-stopped
     volumes:
       - user-data:/data/db
-    ports:
-      - "5001:27017"
+    # ports:
+    #   - '4001:27017'  
 
-  post_db:
-    image: mongo:latest
-    restart: unless-stopped
-    volumes:
-      - post-data:/data/db
-    ports:
-      - "5002:27017"
+  # post_db:
+  #   image: mongo:latest
+  #   restart: unless-stopped
+  #   volumes:
+  #     - post-data:/data/db
+  #   ports:
+  #     - "4002:27017"
 
-  notification_db:
-    image: mongo:latest
-    restart: unless-stopped
-    volumes:
-      - notification-data:/data/db
-    ports:
-      - "5003:27017"
+  # notification_db:
+  #   image: mongo:latest
+  #   restart: unless-stopped
+  #   volumes:
+  #     - notification-data:/data/db
+  #   ports:
+  #     - "4003:27017"
 
-  post_obj:
-    image: minio/minio:latest
-    restart: unless-stopped
-    ports:
-      - "9000:9000"
-      - "9001:9001"
-    environment:
-      - MINIO_ROOT_USER=sudo_user
-      - MINIO_ROOT_PASSWORD=sudo_pass
-    command: server --console-address ":9001" /data # you must use --console-address, else you won't be able to access the minio Website GUI through localhost:9001
-    volumes:
-      - minio-data:/data
+  # post_obj:
+  #   image: minio/minio:latest
+  #   restart: unless-stopped
+  #   ports:
+  #     - "9000:9000"
+  #     - "9001:9001"
+  #   environment:
+  #     - MINIO_ROOT_USER=sudo_user
+  #     - MINIO_ROOT_PASSWORD=sudo_pass
+  #   command: server --console-address ":9001" /data # you must use --console-address, else you won't be able to access the minio Website GUI through localhost:9001
+  #   volumes:
+  #     - minio-data:/data
   
   
   user_service:
@@ -68,29 +68,29 @@ services:
     depends_on:
       - user_db
     environment:
-      - DB_URL=mongodb://user_db/users
+      - DB_URL=mongodb://user_db/users  
 
-  post_service:
-    build: ./post-management-service
-    ports:
-      - 5002:5002
-    depends_on:
-      - post_db
-      - post_obj
-    environment:
-      - DB_URL=mongodb://post_db/posts
+  # post_service:
+  #   build: ./post-management-service
+  #   ports:
+  #     - 5002:5002
+  #   depends_on:
+  #     - post_db
+  #     - post_obj
+  #   environment:
+  #     - DB_URL=mongodb://post_db/posts
   
-  notification_service:
-    build: ./notification-service
-    ports:
-      - 5003:5003
-    depends_on:
-      - notification_db
-    environment:
-      - DB_URL=mongodb://notification_db/notifications
+  # notification_service:
+  #   build: ./notification-service
+  #   ports:
+  #     - 5003:5003
+  #   depends_on:
+  #     - notification_db
+  #   environment:
+  #     - DB_URL=mongodb://notification_db/notifications
   
 volumes:
   user-data:
-  post-data:
-  notification-data:
-  minio-data:
+  # post-data:
+  # notification-data:
+  # minio-data:

@@ -55,29 +55,29 @@ const AddPost = () => {
     }
 
 
-    // Notification system
-    try{  
-      const data = {
-        user_email: localStorage.getItem('email'), // Replace with the user's email
-        message: localStorage.getItem('email') + " has added a post",
-      };
+    // // Notification system
+    // try{  
+    //   const data = {
+    //     user_email: localStorage.getItem('email'), // Replace with the user's email
+    //     message: localStorage.getItem('email') + " has added a post",
+    //   };
 
-      const response = await axios.post('http://localhost:5003/notifications/', data, {
-      headers: {
-        'Content-Type': 'application/json', // Set the content type to JSON
-      },
-      });
+    //   const response = await axios.post('http://localhost:5003/notifications/', data, {
+    //   headers: {
+    //     'Content-Type': 'application/json', // Set the content type to JSON
+    //   },
+    //   });
 
-      if (response.status === 200) {
-        const data = response.data;
-        console.log(data);
-      } else {
-        console.log('Error:', response.statusText);
-      }
-    }catch (error) {
-      // Handle any errors that occurred during the Axios request
-      console.error('Error:', error);
-    }
+    //   if (response.status === 200) {
+    //     const data = response.data;
+    //     console.log(data);
+    //   } else {
+    //     console.log('Error:', response.statusText);
+    //   }
+    // }catch (error) {
+    //   // Handle any errors that occurred during the Axios request
+    //   console.error('Error:', error);
+    // }
   };
 
   return (

@@ -24,7 +24,7 @@ const Signin = () => {
     try {
       console.log(formData);
       // Make a POST request to your backend API
-      const response = await axios.post("http://localhost:80/user/signin/", formData);
+      const response = await axios.post("/user/signin/", formData);
 
       // Save the JWT token in localStorage
       localStorage.setItem('token', response.data.token);
