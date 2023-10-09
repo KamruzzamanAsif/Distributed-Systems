@@ -3,7 +3,7 @@ const jwt = require('jsonwebtoken');
 function authenticate(req, res, next) {
   // Get the token from the request headers, cookies, or wherever you're sending it
   const token = req.header('Authorization'); // Assuming the token is sent in the 'Authorization' header
-
+  
   if (!token) {
     return res.status(401).json({ message: 'Unauthorized' });
   }

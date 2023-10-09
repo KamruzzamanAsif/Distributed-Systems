@@ -61,7 +61,7 @@ const Home = () =>{
               {posts.map((post) => (
               <Post
                   key = {post.id}
-                  user_email={post.user_email}
+                  user_name={post.user_name}
                   content={post.content}
                   imageName = {post.image_name}
               />

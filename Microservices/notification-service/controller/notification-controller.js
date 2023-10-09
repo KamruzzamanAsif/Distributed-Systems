@@ -2,14 +2,14 @@ const Notification = require('../model/Notification');
 
 const addNotification = async (req, res, next) => {
     try {
-        const { user_email, message } = req.body;
+        const { user_name, user_email, message } = req.body;
     
         if (!user_email || !message) {
           return res.status(422).json({ message: 'Invalid data. Please provide user_email and message.' });
         }
     
         // Create a new notification instance
-        const newNotification = new Notification({notification_id: 0, user_email, message });
+        const newNotification = new Notification({notification_id: 0, user_name, user_email, message });
     
         // Save the notification to the database
         const notification = await newNotification.save();

@@ -20,7 +20,7 @@ const minioClient = new Minio.Client({
 
 
 const createPost = async (req, res, next) => {
-    const { user_email, content} = req.body;
+    const { user_name, user_email, content} = req.body;
 
     if (!user_email) {
         return res.status(422).json({ message: 'Invalid data. Please provide user_email' });
@@ -57,6 +57,7 @@ const createPost = async (req, res, next) => {
         const image_name = imageName;
         const newPost = new Post({
             id: 0,
+            user_name,
             user_email,
             content,
             image_name,
@@ -68,8 +69,9 @@ const createPost = async (req, res, next) => {
         // Notification system
         try{
             const data = {
-            user_email, // Replace with the user's email
-            message: user_email + " has added a post",
+                user_name,
+                user_email, // Replace with the user's email
+                message: user_name + " has added a post",
             };
     
             const response = await axios.post('http://localhost:4003/notifications/', data, {

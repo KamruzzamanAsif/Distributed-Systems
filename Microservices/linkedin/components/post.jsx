@@ -1,11 +1,11 @@
 import React from 'react';
 import ImageViewer from './imageViewer';
 
-const Post = ({ user_email, content, imageName }) => {
+const Post = ({ user_name, content, imageName }) => {
   return (
     <div className="max-w-lg mx-auto bg-white rounded-lg shadow p-4 mb-4">
       <div className="flex items-center mb-4">
-        <p className="text-lg font-semibold">{user_email}</p>
+        <p className="text-lg font-semibold">{user_name}</p>
       </div>
 
       <p className="mb-4">{content}</p>
