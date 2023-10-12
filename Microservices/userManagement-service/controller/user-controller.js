@@ -1,4 +1,4 @@
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const User = require('../model/User');
 
@@ -18,7 +18,6 @@ const addUser = async (req, res, next) => {
 
         // Hash the password using bcrypt
         const hashedPassword = await bcrypt.hash(password, 10); // 10 is the number of salt rounds
-
         // Create a new User instance with the hashed password
         const newUser = new User({
             name,

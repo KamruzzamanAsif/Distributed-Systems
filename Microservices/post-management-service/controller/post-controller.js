@@ -1,22 +1,7 @@
 const axios = require('axios');
 const Post = require('../model/Post'); 
-
-const Minio = require('minio');
 const uploadedImages = []; // Array to store image name and object name associations
-
-// Set up MinIO client
-const minioClient = new Minio.Client({
-    endPoint: 'localhost',
-    port: 9000,
-    useSSL: false,
-    /* home */
-    // accessKey: 'tymR6ieVSAHiRtYzuie2',
-    // secretKey: '5FrOOFcFxNIObYqTBEHUz6OCBsfzQFcPJmMJJy3i',
-
-    /* iit */
-    accessKey: 'cFsgWX791k0wVcADmHeu',
-    secretKey: 'IxiTlehqYysPPZsGjVZtbuoICO3sDCIsSFsd5mqr',
-});
+const minioClient = require("./minioClient");
 
 
 const createPost = async (req, res, next) => {
@@ -73,8 +58,7 @@ const createPost = async (req, res, next) => {
                 user_email, // Replace with the user's email
                 message: user_name + " has added a post",
             };
-    
-            const response = await axios.post('http://localhost:4003/notifications/', data, {
+            const response = await axios.post('http://notification_service:5003/notification/notifications', data, {
             headers: {
             'Content-Type': 'application/json', // Set the content type to JSON
             },
@@ -98,7 +82,6 @@ const createPost = async (req, res, next) => {
 };
 
 
-
 const getAllPosts = async (req, res, next) => {
     try {
         // Find all posts 
@@ -110,7 +93,6 @@ const getAllPosts = async (req, res, next) => {
         return next(err);
     }
 };
-
 
 
 exports.createPost = createPost;

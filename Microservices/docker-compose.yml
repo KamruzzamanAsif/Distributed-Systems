@@ -1,0 +1,109 @@
+version: "3.8"
+services:
+  nginx:
+    image: nginx:latest
+    restart: unless-stopped
+    ports:
+      - 80:80
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - post_service
+      - user_service
+      - notification_service
+
+  # linkedin:
+  #   build: ./linkedin
+  #   container_name: linkedin_c
+  #   ports:
+  #     - '3000:3000'
+  #   volumes:
+  #     - ./linkedin:/app
+  #     - /app/node_modules
+  #   depends_on:
+  #     - nginx
+  
+  user_db:
+    image: mongo:latest
+    container_name: user_db_c
+    restart: unless-stopped
+    volumes:
+      - user-data:/data/db
+
+  post_db:
+    image: mongo:latest
+    container_name: post_db_c
+    restart: unless-stopped
+    volumes:
+      - post-data:/data/db
+
+
+  notification_db:
+    image: mongo:latest
+    container_name: notification_db_c
+    restart: unless-stopped
+    volumes:
+      - notification-data:/data/db
+    
+
+  postObj:
+    image: minio/minio:latest
+    container_name: postObj_c
+    restart: unless-stopped
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      - MINIO_ROOT_USER=sudo_user
+      - MINIO_ROOT_PASSWORD=sudo_pass
+    command: server --address 0.0.0.0:9000 /data 
+    volumes:
+      - minio-data:/data
+  
+  
+  user_service:
+    build: ./userManagement-service
+    container_name: user_service_c
+    ports:
+      - 5001:5001
+    depends_on:
+      - user_db
+    environment:
+      - DB_URL=mongodb://user_db/users  
+    volumes:
+      - /usr/src/app/node_modules
+      - ./userManagement-service:/usr/src/app
+  
+
+  post_service:
+    build: ./post-management-service
+    container_name: post_service_c
+    ports:
+      - 5002:5002
+    depends_on:
+      - post_db
+      - postObj
+    environment:
+      - DB_URL=mongodb://post_db/posts
+    volumes:
+      - /usr/src/app/node_modules
+      - ./post-management-service:/usr/src/app
+  
+  notification_service:
+    build: ./notification-service
+    container_name: notification_service_c
+    ports:
+      - 5003:5003
+    depends_on:
+      - notification_db
+    environment:
+      - DB_URL=mongodb://notification_db/notifications
+    volumes:
+      - /usr/src/app/node_modules
+      - ./notification-service:/usr/src/app
+  
+volumes:
+  user-data:
+  post-data:
+  notification-data:
+  minio-data:

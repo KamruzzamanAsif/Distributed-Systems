@@ -6,15 +6,15 @@ const notificationCleanerJob = require('./controller/notificationCleaner');
 const cors = require('cors');
 app.use(express.json());
 app.use(cors());
-app.use("/", router);
+app.use("/notification", router);
 
 mongoose
     .connect(
-        "mongodb://127.0.0.1:27017/notification_db",
+        "mongodb://notification_db/notifications",
         {useNewUrlParser: true, useUnifiedTopology: true}
     )
     .then( () => 
-        app.listen(4003, () => console.log('Connected to MongoDB notification_db and listening on port 4003'))
+        app.listen(5003, () => console.log('Connected to MongoDB notification_db and listening on port 5003'))
     )
     .catch(err => console.log("Error connecting to MongoDB notification_db" + err));
 
