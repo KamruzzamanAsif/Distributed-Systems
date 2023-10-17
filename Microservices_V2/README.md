@@ -1,20 +1,18 @@
-# How to use MongoDB in Docker?
+# About This Version
 
-* step-1: docker ps </br>
-this will show all running containers </br>
-* step-2: docker exec -it user_db_c mongosh </br>
-this will open mongodb shell </br>
-now we can apply all mongodb shell commands
+This version of System has:
+> production built frontend(client) code with nginx
 
-> MongoDB Shell Commands:
+> other microservices as it is
 
-* show dbs </br>
-this will show all databases
-* use db_name </br>
-this will use a db
-* show collections </br>
-this will show all collections inside the db
-* db.collection_name.find() </br>
-this will show all data inside the collection
-* db.collection_name.deleteOne({ field_to_match: "value_to_match" }) </br>
-this will delete an entry matching to field name and it's value
+## Key changes
+> changes in frontend code (upgraded to react)
+
+> for production build ~ `npm run build`
+> </br> this will create build folder which contains static html files
+
+> nginx & frontend codes are build together in a single dockerfile. So now the frontend service isn't required in docker-compose.
+
+
+# Usages
+> got to the terminal at Microservices_V2 dir & hit ~ `docker-compose up -d --build`
