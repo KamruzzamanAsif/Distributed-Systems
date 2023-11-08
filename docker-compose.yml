@@ -60,8 +60,6 @@ services:
       - DB_URL=mongodb://user_db/users  
     volumes:
       - /usr/src/app/node_modules
-      - ./userManagement-service:/usr/src/app
-  
 
   post_service:
     image:  kamruzzamanasif/distributed-systems:post-service 
@@ -75,7 +73,6 @@ services:
       - DB_URL=mongodb://post_db/posts
     volumes:
       - /usr/src/app/node_modules
-      - ./post-management-service:/usr/src/app
   
   notification_service:
     image:  kamruzzamanasif/distributed-systems:notification-service
@@ -88,7 +85,6 @@ services:
       - DB_URL=mongodb://notification_db/notifications
     volumes:
       - /usr/src/app/node_modules
-      - ./notification-service:/usr/src/app
   
 volumes:
   user-data:
